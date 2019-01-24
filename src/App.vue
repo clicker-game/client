@@ -1,12 +1,29 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="nav" style="background:black">
+      <router-link to="/" style="font-size:40px; color:white;" class="mr-5">Home</router-link> <img alt="Vue logo" class="mr-5" src="./assets/logo-game.png" style="height:100px;"> <button class="btn btn-lg btn-danger" type="submit" @click.prevent="logout" v-if="name">LOGOUT</button>
+      <!-- <router-link to="/about">About</router-link> -->
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'home',
+  data () {
+    return {
+      name: localStorage.getItem('name')
+    }
+  },
+  methods: {
+    logout () {
+      localStorage.clear()
+      window.location.reload()
+    }
+  }
+}
+</script>
 
 <style>
 #app {
