@@ -1,18 +1,31 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <nameForm v-if="!name"></nameForm>
+    <addRoom v-if="name"></addRoom>
+    <roomCard v-if="name"></roomCard>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
+import addRoom from '@/components/addRoom.vue'
+import roomCard from '@/components/roomCard.vue'
+import nameForm from '@/components/nameForm.vue'
 
 export default {
   name: 'home',
+  data () {
+    return {
+      name: localStorage.getItem('name')
+    }
+  },
   components: {
-    HelloWorld
+    // HelloWorld,
+    addRoom,
+    roomCard,
+    nameForm
   }
 }
 </script>
