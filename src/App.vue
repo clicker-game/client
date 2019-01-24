@@ -13,13 +13,18 @@ export default {
   name: 'home',
   data () {
     return {
-      name: localStorage.getItem('name')
+      name: localStorage.getItem('myname')
     }
   },
   methods: {
     logout () {
       localStorage.clear()
       window.location.reload()
+    }
+  },
+  mounted() {
+    if(!this.name) {
+      this.$router.push('/')
     }
   }
 }
