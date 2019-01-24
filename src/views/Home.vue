@@ -18,7 +18,7 @@ export default {
   name: 'home',
   data () {
     return {
-      name: localStorage.getItem('name')
+      name: localStorage.getItem('myname')
     }
   },
   components: {

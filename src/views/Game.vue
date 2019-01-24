@@ -19,31 +19,25 @@
 export default {
   data () {
     return {
-        room: {
-            player1: "zia",
-            player1score: 0,
-            player2score: 20
-        }
+        room: Object
     }
   },
   methods: {
     play1 () {
-        if (localStorage.getItem('myname') === this.room.player1) {
+        if (localStorage.getItem('name') === this.room.player1) {
             var audio = new Audio("http://s1download-universal-soundbank.com/mp3/sounds/147.mp3");
             audio.play()
             .then((data) => {
                 console.log(this.player1score)
-                if (this.room.player1score < 20) {
-                    if (this.room.player2score === 20) {
+                if (this.room.score1 < 20) {
+                    if (this.room.score2 === 20) {
                         this.lose()
                     } else {
-                        this.room.player1score++
+                        this.$store.dispatch('updateScore', { id:this.$store.params.id, key: "score1"} )
                     }
-                    // this.$store.dispatch('updateScore', { id:this.$store.params.id, name: "player1"} )
                 }else {
                    this.win()
                 }
-                console.log('berhasil')
             })
             .catch((err) => {
                 console.log(err.message)
@@ -57,9 +51,15 @@ export default {
             var audio = new Audio("http://www.orangefreesounds.com/wp-content/uploads/2018/04/Dog-woof-single-sound.mp3?_=1");
             audio.play()
             .then((data) => {
-                 this.$store.dispatch('updateScore', { id:this.$store.params.id, name: "player2"} )
-                console.log('berhasil')
-
+                if (this.room.score2 < 20) {
+                    if (this.room.score2 === 20) {
+                        this.lose()
+                    } else {
+                        this.$store.dispatch('updateScore', { id:this.$store.params.id, name: "player2"} )
+                    }
+                } else {
+                    this.win()
+                }
             })
             .catch((err) => {
                 console.log(err.message)
@@ -80,14 +80,18 @@ export default {
         text: "BIG LOSER !!!!!"
       })
     }
+  },
+  mounted() {
+    if(!localStorage.getItem("myname")) {
+      this.$router.push('/')
+    } else {
+      let id = this.$store.params.id
+      let myroom = this.$store.state.all_room
+      myroom.filter((r) => {
+          return r.id === id
+      })
+      this.room = myroom
+    }
   }
-//   mounted () {
-//       let id = this.$store.params.id
-//       let myroom = this.$store.state.rooms
-//       myroom.filter((r) => {
-//           return r.id === id
-//       })
-//       this.room = myroom
-//   }
 }
 </script>
