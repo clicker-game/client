@@ -20,6 +20,8 @@ export default {
   },
   methods: {
     writeRoomData () {
+      this.$store.dispatch('createRoom', this.roomName);
+      this.roomName = ''; 
     }
   }
 }
